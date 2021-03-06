@@ -12,10 +12,9 @@ import {
 } from "@material-ui/core";
 
 import { Consultation } from "../interfaces/Consultation";
-import { ResponseDto } from "../interfaces/ResponseDto";
 
 const ConsultationTable: React.FC<{
-  consultations: ResponseDto<Consultation>;
+  consultations: Consultation[];
 }> = ({ consultations }) => {
   const history = useHistory();
   return (
@@ -31,7 +30,7 @@ const ConsultationTable: React.FC<{
           </TableRow>
         </TableHead>
         <TableBody>
-          {consultations.response.elements.map((consultation: Consultation) => (
+          {consultations.map((consultation: Consultation) => (
             <TableRow
               hover
               key={consultation.id}
