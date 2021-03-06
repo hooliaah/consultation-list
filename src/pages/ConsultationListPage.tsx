@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import { Card, Grid } from "@material-ui/core";
+import { Card, CircularProgress, Grid } from "@material-ui/core";
 
 import ConsultationTable from "../components/ConsultationTable";
 import SearchBox from "../components/SearchBox";
+import { useGetConsultations } from "../hooks/useGetConsultations";
 import { Consultation } from "../interfaces/Consultation";
 import { ResponseDto } from "../interfaces/ResponseDto";
 
@@ -591,14 +592,38 @@ export const SAMPLE_DATA: ResponseDto<Consultation> = {
 };
 const ConsultationListPage: React.FC<{}> = () => {
   const [search, setSearch] = useState<string>("");
+  const [consultationResponse, setConsultationResponse] = useState<
+    ResponseDto<Consultation>
+  >();
+  // TODO use response data
   const [consultations, setConsultations] = useState<Consultation[]>(
     SAMPLE_DATA.response.elements
   );
   const [filteredConsultations, setFilteredConsultations] = useState<
     Consultation[]
   >([]);
+  // TODO get data from endpoint
+  // const {
+  //   consultationResponse: loadedResponse,
+  //   isLoading,
+  //   isError,
+  // } = useGetConsultations(true);
+
+  // useEffect(() => {
+  //   if (!isLoading && loadedResponse) {
+  //     setConsultationResponse(loadedResponse);
+  //     if (
+  //       loadedResponse.elements &&
+  //       loadedResponse.elements.length > 0
+  //     ) {
+  //       setConsultations(loadedResponse.response.elements);
+  //     }
+  //   }
+  // }, [isLoading, loadedResponse]);
+
   useEffect(() => {
     if (search) {
+      // TODO use response data
       const filteredResults = SAMPLE_DATA.response.elements.filter(
         (consultation: Consultation) =>
           consultation.id === search ||
@@ -616,26 +641,48 @@ const ConsultationListPage: React.FC<{}> = () => {
   }, [search, consultations]);
 
   return (
-    <Grid container spacing={3}>
-      <Grid container item xs={12}>
+    <Grid
+      container
+      spacing={3}
+      direction='column'
+      justify='center'
+      alignItems='center'
+    >
+      <Grid item xs={12}>
         <h1>Consultations</h1>
       </Grid>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <SearchBox
-            value={search}
-            onSearch={(value: string) => setSearch(value)}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Card>
-            <ConsultationTable
-              consultations={
-                search.length > 1 ? filteredConsultations : consultations
-              }
+      <Grid
+        container
+        spacing={3}
+        direction='column'
+        justify='center'
+        alignItems='center'
+      >
+        {/* TODO uncomment when endpoint available */}
+        {/* {isLoading && (
+          <Grid item xs={12}>
+            <CircularProgress />
+          </Grid>
+        )} */}
+        {/* {!isLoading && (consultations || filteredConsultations) && ( */}
+        <>
+          <Grid item xs={12}>
+            <SearchBox
+              value={search}
+              onSearch={(value: string) => setSearch(value)}
             />
-          </Card>
-        </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <Card>
+              <ConsultationTable
+                consultations={
+                  search.length > 1 ? filteredConsultations : consultations
+                }
+              />
+            </Card>
+          </Grid>
+        </>
+        {/* )} */}
       </Grid>
     </Grid>
   );
