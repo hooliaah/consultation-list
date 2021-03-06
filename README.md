@@ -1,3 +1,7 @@
+# Consultation List React App
+
+This project fetches a list of consultations. Click on a row in the table to see more details.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
