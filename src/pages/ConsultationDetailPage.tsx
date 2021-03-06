@@ -1,7 +1,26 @@
 import React from "react";
+import { RouteComponentProps } from "react-router-dom";
 
-const ConsultationDetailPage: React.FC<{}> = ({}) => {
-  return <h1>Detail Page</h1>;
+import { Grid } from "@material-ui/core";
+
+import ConsultationInfoCard from "../components/ConsultationInfoCard";
+import { Consultation } from "../interfaces/Consultation";
+
+const ConsultationDetailPage: React.FC<RouteComponentProps> = ({
+  location,
+}) => {
+  const consultation = location.state as Consultation;
+
+  return (
+    <Grid container spacing={3}>
+      <Grid container item xs={12}>
+        <h1>Consultation Information</h1>
+      </Grid>
+      <Grid item xs={12}>
+        <ConsultationInfoCard consultation={consultation} />
+      </Grid>
+    </Grid>
+  );
 };
 
 export default ConsultationDetailPage;
