@@ -4,6 +4,7 @@ import { RouteComponentProps } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 
 import ConsultationInfoCard from "../components/ConsultationInfoCard";
+import PrescriptionsTableCard from "../components/PrescriptionsTableCard";
 import { Consultation } from "../interfaces/Consultation";
 
 const ConsultationDetailPage: React.FC<RouteComponentProps> = ({
@@ -18,6 +19,9 @@ const ConsultationDetailPage: React.FC<RouteComponentProps> = ({
       </Grid>
       <Grid item xs={12}>
         <ConsultationInfoCard consultation={consultation} />
+      </Grid>
+      <Grid item xs={12}>
+        <PrescriptionsTableCard consultation={consultation} />
       </Grid>
     </Grid>
   );
