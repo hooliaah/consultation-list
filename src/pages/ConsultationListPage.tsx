@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Card, Grid } from "@material-ui/core";
 
 import ConsultationTable from "../components/ConsultationTable";
+import SearchBox from "../components/SearchBox";
 import { Consultation } from "../interfaces/Consultation";
 import { ResponseDto } from "../interfaces/ResponseDto";
-import SearchBox from "../components/SearchBox";
 
 export const SAMPLE_DATA: ResponseDto<Consultation> = {
   message: "Success getting consultations",
@@ -603,8 +603,10 @@ const ConsultationListPage: React.FC<{}> = () => {
         (consultation: Consultation) =>
           consultation.id === search ||
           consultation.doctor_id === search ||
-          consultation.patient_id === search
-        // TODO conditions treated search
+          consultation.patient_id === search ||
+          consultation.conditionsTreated.some(
+            (ct) => ct.businessLine === search
+          )
       );
       setFilteredConsultations(filteredResults);
     }
@@ -618,7 +620,7 @@ const ConsultationListPage: React.FC<{}> = () => {
       <Grid container item xs={12}>
         <h1>Consultations</h1>
       </Grid>
-      <Grid container item xs={12}>
+      <Grid container spacing={3}>
         <Grid item xs={12}>
           <SearchBox
             value={search}

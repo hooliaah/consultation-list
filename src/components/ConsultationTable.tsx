@@ -12,11 +12,21 @@ import {
 } from "@material-ui/core";
 
 import { Consultation } from "../interfaces/Consultation";
+import { ConditionsTreated } from "../interfaces/ConditionsTreated";
 
 const ConsultationTable: React.FC<{
   consultations: Consultation[];
 }> = ({ consultations }) => {
   const history = useHistory();
+  const getConditionsTreated = (consultation: Consultation) => {
+    const conditionsTreatedArray: string[] = [];
+    consultation.conditionsTreated.map(
+      (conditionsTreated: ConditionsTreated) => {
+        return conditionsTreatedArray.push(`${conditionsTreated.businessLine}`);
+      }
+    );
+    return `${conditionsTreatedArray.join(", ")}`;
+  };
   return (
     <TableContainer>
       <Table stickyHeader>
@@ -27,6 +37,7 @@ const ConsultationTable: React.FC<{
             <TableCell>Patient ID</TableCell>
             <TableCell>Doctor ID</TableCell>
             <TableCell>Completed Date</TableCell>
+            <TableCell>Conditions Treated</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -46,6 +57,7 @@ const ConsultationTable: React.FC<{
                   "MMM d, yyyy"
                 )}
               </TableCell>
+              <TableCell>{getConditionsTreated(consultation)}</TableCell>
             </TableRow>
           ))}
         </TableBody>
