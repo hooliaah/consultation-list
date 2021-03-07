@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
+
+import { Consultation } from "../interfaces/Consultation";
+import { ResponseDto } from "../interfaces/ResponseDto";
 
 export function useGetConsultations(shouldFetchOnMount = false) {
   const PATH =
-    "https://5otl9gewlh.execute-api.us-west-1.amazonaws.com/dev/consultations/";
-  const [data, setData] = useState();
+    "https://2revjapjwd.execute-api.us-west-1.amazonaws.com/dev/consultations";
+  const [data, setData] = useState<ResponseDto<Consultation>>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
 
