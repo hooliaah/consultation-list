@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Card, CircularProgress, Grid } from "@material-ui/core";
+import { Card, CircularProgress, Grid, Typography } from "@material-ui/core";
 
 import ConsultationTable from "../components/ConsultationTable";
 import SearchBox from "../components/SearchBox";
@@ -12,7 +12,7 @@ const ConsultationListPage: React.FC<{}> = () => {
   const [search, setSearch] = useState<string>("");
   const [consultationResponse, setConsultationResponse] = useState<
     ResponseDto<Consultation>
-  >();
+  >({} as ResponseDto<Consultation>);
   const [consultations, setConsultations] = useState<Consultation[]>([]);
   const [filteredConsultations, setFilteredConsultations] = useState<
     Consultation[]
@@ -76,7 +76,16 @@ const ConsultationListPage: React.FC<{}> = () => {
             <CircularProgress />
           </Grid>
         )}
-        {!isLoading && (consultations || filteredConsultations) && (
+        {isError && (
+          <Typography variant='h5'>
+            There was an error loading consultations.{" "}
+            {loadedResponse && consultationResponse.error
+              ? consultationResponse.error
+              : `Please check your internet
+            connection and try again.`}
+          </Typography>
+        )}
+        {!isLoading && !isError && (consultations || filteredConsultations) && (
           <>
             <Grid item xs={12}>
               <SearchBox
