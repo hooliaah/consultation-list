@@ -62,7 +62,7 @@ const ConsultationListPage: React.FC<{}> = () => {
       alignItems='center'
     >
       <Grid item xs={12}>
-        <h1>Consultations</h1>
+        <Typography variant='h3'>Consultations</Typography>
       </Grid>
       <Grid
         container
